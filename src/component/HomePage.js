@@ -80,26 +80,26 @@ export class HomePage extends Component {
                     <div className='top'>
                         <header>ADSOUL</header>
                         <div className="asset1">
-                            <img src={process.env.PUBLIC_URL+"./assets/asset1.svg"}/>
+                            <img src={process.env.PUBLIC_URL+"./assets/asset1.svg"} alt='asset1'/>
                         </div>
                     </div>
                     <div className='bottom'>
                         <header>Revenue Optimization</header>
                         <div className="grid">
                             <div className="item">
-                                <img src={process.env.PUBLIC_URL+"./assets/icon1.svg"}/>
+                                <img src={process.env.PUBLIC_URL+"./assets/icon1.svg"} alt='icon1'/>
                                 <div>Fill Rate</div>
                             </div>
                             <div className="item">
-                                <img src={process.env.PUBLIC_URL+"./assets/icon2.svg"}/>
+                                <img src={process.env.PUBLIC_URL+"./assets/icon2.svg"} alt='icon2'/>
                                 <div>Improve CTR</div>
                             </div>
                             <div className="item">
-                                <img src={process.env.PUBLIC_URL+"./assets/icon3.svg"}/>
+                                <img src={process.env.PUBLIC_URL+"./assets/icon3.svg"} alt='icon3'/>
                                 <div>Refresh Rate</div>
                             </div>
                             <div className="item">
-                                <img src={process.env.PUBLIC_URL+"./assets/icon4.svg"}/>
+                                <img src={process.env.PUBLIC_URL+"./assets/icon4.svg"} alt='icon4'/>
                                 <div>Quick Integration</div>
                             </div>
                         </div>
@@ -134,7 +134,7 @@ export class HomePage extends Component {
                                             </div>
                                             {/* <img src={process.env.PUBLIC_URL+"./assets/right-arrow.png"} onClick={this.pageDetail.bind(this,app.id)}/> */}
                                             <Link to={{pathname: '/appdetails',search:`${app.id}`,state: { showDetail: true ,id:app.id}}}>
-                                                <img src={process.env.PUBLIC_URL+"./assets/right-arrow.png"}/>
+                                                <img src={process.env.PUBLIC_URL+"./assets/right-arrow.png"} alt='right-arrow'/>
                                             </Link>
                                         </div>
                                         <div className='bottom'>

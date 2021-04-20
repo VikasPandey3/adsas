@@ -56,7 +56,7 @@ export class AppDetails extends Component {
               <div className='detail'>
                 <div className='detail-title'>
                   <Link to='/'>
-                    <img src={process.env.PUBLIC_URL+"./assets/left-arrow.png"}/>
+                    <img src={process.env.PUBLIC_URL+"./assets/left-arrow.png"} alt='left-arrow'/>
                   </Link>
                   <div className="appicon"></div>
                   <div>
