@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import '../assets/homepage.css'
+import {showDetail} from '../redux/action'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 export class HomePage extends Component {
     constructor(props){
         super(props);
@@ -11,6 +14,7 @@ export class HomePage extends Component {
 
           };
           this.numFormatter=this.numFormatter.bind(this);
+          this.pageDetail=this.pageDetail.bind(this);
     }
     numFormatter(num) {
         if(num > 999 && num < 1000000){
@@ -21,8 +25,12 @@ export class HomePage extends Component {
             return num; // if value < 1000, nothing to do
         }
     }
+    pageDetail(id){
+        this.props.showDetail({showDetail:true,id:id})
+
+    }
      async componentDidMount() {
-        await Promise.all([fetch("https://api.npoint.io/4ca5aaf459a573940672"),fetch("https://api.npoint.io/d734975d2aee62d197ef"),
+        await Promise.all([fetch("https://api.npoint.io/adf6676a313fa01f787d"),fetch("https://api.npoint.io/d734975d2aee62d197ef"),
         ])
         .then(async ([result1,result2])=>{
             const a= await result1.json();
@@ -35,6 +43,12 @@ export class HomePage extends Component {
                     isLoaded: true,
                     apps: res[0],
                     appDetail:res[1],
+                    });
+                    this.props.details(res[0])
+            },(error)=>{
+                this.setState({
+                    isLoaded: true,
+                    error:error
                     });
             })
         
@@ -58,7 +72,8 @@ export class HomePage extends Component {
         //   )
       }
     render() {
-        const { error, isLoaded, apps, } = this.state;
+        console.log("homepage")
+        const { error, isLoaded, apps, appDetail} = this.state;
         return (
             <div className="dashboard">
                 <div className="left">
@@ -102,12 +117,13 @@ export class HomePage extends Component {
                               } else if (!isLoaded) {
                                 return <div>Loading...</div>;
                               } else {
+                                  console.log("apps")
                                 return (
                                     apps.map((app,i)=>{
                                         const detail=this.state.appDetail[i+1];
                                         
                                     return(
-                                        <div className='app' key={i}>
+                                    <div className='app' key={i}>
                                         <div className="top">
                                             <div className='top-left'>
                                                 <div className="appicon"></div>
@@ -116,7 +132,10 @@ export class HomePage extends Component {
                                                 <div className="pubname">{app.publisherName}</div>
                                                 </div>
                                             </div>
-                                            <img src={process.env.PUBLIC_URL+"./assets/right-arrow.png"}/>
+                                            {/* <img src={process.env.PUBLIC_URL+"./assets/right-arrow.png"} onClick={this.pageDetail.bind(this,app.id)}/> */}
+                                            <Link to={{pathname: '/appdetails',search:`${app.id}`,state: { showDetail: true ,id:app.id}}}>
+                                                <img src={process.env.PUBLIC_URL+"./assets/right-arrow.png"}/>
+                                            </Link>
                                         </div>
                                         <div className='bottom'>
                                             <div>
@@ -147,5 +166,11 @@ export class HomePage extends Component {
         )
     }
 }
-
-export default HomePage;
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        details: (y) => {
+          dispatch(showDetail(y));
+        },
+      };
+}
+export default connect(null,mapDispatchToProps)(HomePage);

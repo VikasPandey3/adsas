@@ -1,0 +1,1 @@
+export const SHOW_APP_DETAIL="SHOW_APP_DETAIL";
