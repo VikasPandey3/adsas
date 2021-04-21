@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../assets/homepage.css'
 import {showDetail} from '../redux/action'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 export class HomePage extends Component {
     constructor(props){
         super(props);
@@ -108,7 +108,7 @@ export class HomePage extends Component {
                 <div className="right">
                     <header>
                         <div>Apps</div>
-                        <img src={process.env.PUBLIC_URL+"./assets/settings.png"}/>
+                        <img src={process.env.PUBLIC_URL+"./assets/settings.png"} alt='settings'/>
                     </header>
                     <div className="apps">
                         {(()=>{
@@ -120,7 +120,7 @@ export class HomePage extends Component {
                                   console.log("apps")
                                 return (
                                     apps.map((app,i)=>{
-                                        const detail=this.state.appDetail[i+1];
+                                        const detail=appDetail[i+1];
                                         
                                     return(
                                     <div className='app' key={i}>
@@ -133,7 +133,7 @@ export class HomePage extends Component {
                                                 </div>
                                             </div>
                                             {/* <img src={process.env.PUBLIC_URL+"./assets/right-arrow.png"} onClick={this.pageDetail.bind(this,app.id)}/> */}
-                                            <Link to={{pathname: '/appdetails',search:`${app.id}`,state: { showDetail: true ,id:app.id}}}>
+                                            <Link push to={{pathname: '/appdetails',search:`${app.id}`,state: {...app}}}>
                                                 <img src={process.env.PUBLIC_URL+"./assets/right-arrow.png"} alt='right-arrow'/>
                                             </Link>
                                         </div>
@@ -166,6 +166,7 @@ export class HomePage extends Component {
         )
     }
 }
+
 const mapDispatchToProps=(dispatch)=>{
     return {
         details: (y) => {

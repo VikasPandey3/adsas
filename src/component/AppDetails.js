@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../assets/pagedetail.css'
 import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+// import {connect} from 'react-redux'
 export class AppDetails extends Component {
     constructor(props){
         super(props);
@@ -18,9 +18,7 @@ export class AppDetails extends Component {
       return renderrate.toFixed(2)+'%'
     }
     async componentDidMount(){
-        const x=this.props.location.search
-        var id = x.split('?')[1]
-        console.log(id)
+        const {id}=this.props.location.state
         await fetch(`https://api.npoint.io/baf8dba5974d29aa094b/${id}`)
           .then(res => res.json())
           .then(
@@ -47,9 +45,7 @@ export class AppDetails extends Component {
         }else if(!isLoaded){
           return <div>Loading...</div>
         }else{
-          const x=this.props.location.search
-          var id = x.split('?')[1]
-          const apps=this.props.apps
+          const {appName,publisherName}=this.props.location.state
           return (
             <div className='container'>
               <header className='header'>ADSOUL</header>
@@ -60,8 +56,8 @@ export class AppDetails extends Component {
                   </Link>
                   <div className="appicon"></div>
                   <div>
-                    <div className="appname">{apps[id-1]['appName']}</div>
-                    <div className="pubname">{apps[id-1]['publisherName']}</div>
+                    <div className="appname">{appName}</div>
+                    <div className="pubname">{publisherName}</div>
                   </div>
                 </div>
                 <div className='table-container'>
@@ -98,10 +94,10 @@ export class AppDetails extends Component {
     }
   }
 }
-const mapStateToProps=(state)=>{
-  console.log('state',state)
-  return{
-    apps:state.apps
-  }
-}
-export default connect(mapStateToProps,null)(AppDetails)
+// const mapStateToProps=(state)=>{
+//   console.log('state',state)
+//   return{
+//     apps:state.apps
+//   }
+// }
+export default AppDetails;
